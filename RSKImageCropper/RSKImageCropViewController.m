@@ -301,7 +301,7 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
         _moveAndScaleLabel = [[UILabel alloc] init];
         _moveAndScaleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _moveAndScaleLabel.backgroundColor = [UIColor clearColor];
-        _moveAndScaleLabel.text = NSLocalizedString(@"Move and Scale", @"Move and Scale label");
+        _moveAndScaleLabel.text = NSLocalizedString(@"表示範囲の選択", @"Move and Scale label");
         _moveAndScaleLabel.textColor = [UIColor whiteColor];
         _moveAndScaleLabel.opaque = NO;
     }
@@ -313,7 +313,7 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
     if (!_cancelButton) {
         _cancelButton = [[UIButton alloc] init];
         _cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_cancelButton setTitle:NSLocalizedString(@"Cancel", @"Cancel button") forState:UIControlStateNormal];
+        [_cancelButton setTitle:NSLocalizedString(@"キャンセル", @"Cancel button") forState:UIControlStateNormal];
         [_cancelButton addTarget:self action:@selector(onCancelButtonTouch:) forControlEvents:UIControlEventTouchUpInside];
         _cancelButton.opaque = NO;
     }
@@ -325,7 +325,7 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
     if (!_chooseButton) {
         _chooseButton = [[UIButton alloc] init];
         _chooseButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_chooseButton setTitle:NSLocalizedString(@"Choose", @"Choose button") forState:UIControlStateNormal];
+        [_chooseButton setTitle:NSLocalizedString(@"決定", @"Choose button") forState:UIControlStateNormal];
         [_chooseButton addTarget:self action:@selector(onChooseButtonTouch:) forControlEvents:UIControlEventTouchUpInside];
         _chooseButton.opaque = NO;
     }
@@ -846,7 +846,9 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
         CGRect cropRect = self.cropRect;
         CGFloat rotationAngle = self.rotationAngle;
         
-        UIImage *croppedImage = [self croppedImage:self.originalImage cropMode:self.cropMode cropRect:cropRect rotationAngle:rotationAngle zoomScale:self.imageScrollView.zoomScale maskPath:self.maskPath applyMaskToCroppedImage:self.applyMaskToCroppedImage];
+        // for synchro
+        // UIImage *croppedImage = [self croppedImage:self.originalImage cropMode:self.cropMode cropRect:cropRect rotationAngle:rotationAngle zoomScale:self.imageScrollView.zoomScale maskPath:self.maskPath applyMaskToCroppedImage:self.applyMaskToCroppedImage];
+        UIImage *croppedImage = self.originalImage;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([self.delegate respondsToSelector:@selector(imageCropViewController:didCropImage:usingCropRect:rotationAngle:)]) {
