@@ -59,6 +59,8 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
 @property (strong, nonatomic) UIButton *cancelButton;
 @property (strong, nonatomic) UIButton *chooseButton;
 
+@property (weak, nonatomic) UIView *customView;
+
 @property (strong, nonatomic) UITapGestureRecognizer *doubleTapGestureRecognizer;
 @property (strong, nonatomic) UIRotationGestureRecognizer *rotationGestureRecognizer;
 
@@ -126,6 +128,12 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
     [self.view addSubview:self.cancelButton];
     [self.view addSubview:self.chooseButton];
     
+    if ([self.dataSource respondsToSelector:@selector(imageCropViewControllerCustomView:)]) {
+        UIView *customView = [self.dataSource imageCropViewControllerCustomView:self];
+        [self.overlayView addSubview:customView];
+        self.customView = customView;
+    }
+
     [self.view addGestureRecognizer:self.doubleTapGestureRecognizer];
     [self.view addGestureRecognizer:self.rotationGestureRecognizer];
 }
@@ -424,6 +432,11 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
         [self.maskLayer addAnimation:pathAnimation forKey:@"path"];
         
         self.maskLayer.path = [clipPath CGPath];
+
+        NSLog(NSStringFromCGRect(maskPath.bounds));
+
+        CGRect maskBounds = maskPath.bounds;
+        self.customView.frame = CGRectMake(0, maskBounds.origin.y + maskBounds.size.height, maskBounds.size.width, self.customView.bounds.size.height);
     }
 }
 

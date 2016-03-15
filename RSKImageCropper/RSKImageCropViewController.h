@@ -222,6 +222,8 @@ typedef NS_ENUM(NSUInteger, RSKImageCropMode) {
  */
 - (CGRect)imageCropViewControllerCustomMovementRect:(RSKImageCropViewController *)controller;
 
+- (UIView *)imageCropViewControllerCustomView:(RSKImageCropViewController *)controller;
+
 @end
 
 /**
